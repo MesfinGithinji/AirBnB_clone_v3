@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """The entry point to our flask application"""
 
 import os
