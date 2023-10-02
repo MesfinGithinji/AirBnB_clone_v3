@@ -13,11 +13,20 @@ app = Flask(__name__)
 # register the blueprint
 app.register_blueprint(app_views)
 
+# initialise CORS
+CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+
 
 @app.teardown_appcontext
 def teardown(exception):
     """Destroy current session"""
     storage.close()
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    """custom error 404 methods"""
+    return ({'error': 'Not found'}), 404
 
 
 if __name__ == '__main__':
