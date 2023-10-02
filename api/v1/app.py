@@ -2,34 +2,48 @@
 """The entry point to our flask application"""
 
 import os
-from flask import Flask
-from models import storage
-from api.v1.views import app_views
+from flask import Flask, make_response, jsonify
 from flask_cors import CORS
 
-# create the instance
+from models import storage
+from api.v1.views import app_views
+
+
 app = Flask(__name__)
 
-# register the blueprint
+app_host = os.getenv('HBNB_API_HOST', '0.0.0.0')
+app_port = int(os.getenv('HBNB_API_PORT', '5000'))
+app.url_map.strict_slashes = False
 app.register_blueprint(app_views)
-
-# initialise CORS
-CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+CORS(app, resources={'/*': {'origins': app_host}})
 
 
 @app.teardown_appcontext
-def teardown(exception):
+def teardown_session(exception):
     """Destroy current session"""
     storage.close()
 
 
 @app.errorhandler(404)
 def page_not_found(error):
-    """custom error 404 methods"""
-    return ({'error': 'Not found'}), 404
+    """custom 404 handler"""
+    return jsonify(error='Not found'), 404
+
+@app.errorhandler(400)
+def error_400(error):
+    """400 error code."""
+    msg = 'Bad request'
+    if isinstance(error, Exception) and hasattr(error, 'description'):
+        msg = error.description
+    return jsonify(error=msg), 400
 
 
 if __name__ == '__main__':
-    host = os.getenv('HBNB_API_HOST', '0.0.0.0')
-    port = int(os.getenv('HBNB_API_PORT', 5000))
-    app.run(host=host, port=port, threaded=True)
+    app_host = os.getenv('HBNB_API_HOST', '0.0.0.0')
+    app_port = int(os.getenv('HBNB_API_PORT', '5000'))
+    app.run(
+        host=app_host,
+        port=app_port,
+        threaded=True
+    )
+
