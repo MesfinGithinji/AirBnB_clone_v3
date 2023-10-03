@@ -45,7 +45,7 @@ def get_cities(state_id=None, city_id=None):
 
 
 def remove_city(state_id=None, city_id=None):
-    '''Removes a city with the given id.
+    '''Removes a city with an id.
     '''
     if city_id:
         city = storage.get(City, city_id)
