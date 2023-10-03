@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""Place View"""
-
+'''Contains the places view for the API.'''
 from flask import jsonify, request
 from werkzeug.exceptions import NotFound, MethodNotAllowed, BadRequest
 
@@ -55,7 +54,7 @@ def get_places(city_id=None, place_id=None):
 
 
 def remove_place(city_id=None, place_id=None):
-    '''Removes a place with the given id.
+    '''Removes a place with  given id.
     '''
     if place_id:
         place = storage.get(Place, place_id)
@@ -91,14 +90,14 @@ def add_place(city_id=None, place_id=None):
 def update_place(city_id=None, place_id=None):
     '''Updates the place with the given id.
     '''
-    place_keys = ('id', 'user_id', 'city_id', 'created_at', 'updated_at')
+    xkeys = ('id', 'user_id', 'city_id', 'created_at', 'updated_at')
     place = storage.get(Place, place_id)
     if place:
         data = request.get_json()
         if type(data) is not dict:
             raise BadRequest(description='Not a JSON')
         for key, value in data.items():
-            if key not in place_keys:
+            if key not in xkeys:
                 setattr(place, key, value)
         place.save()
         return jsonify(place.to_dict()), 200

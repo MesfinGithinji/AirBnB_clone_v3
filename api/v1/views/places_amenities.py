@@ -29,7 +29,7 @@ def handle_places_amenities(place_id=None, amenity_id=None):
 
 
 def get_place_amenities(place_id=None, amenity_id=None):
-    '''Gets the amenities of a place with the given id.
+    '''Gets the amenities of a place with a given id.
     '''
     if place_id:
         place = storage.get(Place, place_id)

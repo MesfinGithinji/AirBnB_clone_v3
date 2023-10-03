@@ -30,7 +30,7 @@ def handle_states(state_id=None):
 
 
 def get_states(state_id=None):
-    '''Gets the state with the given id or all states.
+    '''Gets the state with a given id or all states.
     '''
     all_states = storage.all(State).values()
     if state_id:

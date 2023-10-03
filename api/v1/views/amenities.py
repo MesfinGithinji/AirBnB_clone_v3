@@ -9,7 +9,7 @@ from models import storage
 from models.amenity import Amenity
 
 ALLOWED_METHODS = ['GET', 'DELETE', 'POST', 'PUT']
-"""Methods allowed for the amenities endpoint."""
+"""Methods allowed for amenities endpoint."""
 
 
 @app_views.route('/amenities', methods=ALLOWED_METHODS)
