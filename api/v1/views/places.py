@@ -54,7 +54,7 @@ def get_places(city_id=None, place_id=None):
 
 
 def remove_place(city_id=None, place_id=None):
-    '''Removes a place with the given id.
+    '''Removes a place with  given id.
     '''
     if place_id:
         place = storage.get(Place, place_id)
