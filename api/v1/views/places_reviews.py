@@ -13,7 +13,7 @@ from models.user import User
 @app_views.route('/places/<place_id>/reviews', methods=['GET', 'POST'])
 @app_views.route('/reviews/<review_id>', methods=['GET', 'DELETE', 'PUT'])
 def handle_reviews(place_id=None, review_id=None):
-    '''The method handler for the reviews endpoint.
+    '''The method handler for reviews endpoint.
     '''
     handlers = {
         'GET': get_reviews,
